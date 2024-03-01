@@ -10,19 +10,68 @@ def input_survey_code(driver, survey_code):
     for index in range(0, 6):
         type_value(driver, "CN" + str(index + 1), survey_code[index])
 
-    click_button(driver, "NextButton")
+    click_next(driver)
 
     # remove 2 in production
 
+    click_next(driver)
+    click_next(driver)
+
+    return not find_text(driver, "ErrorMessageOnTopOfThePage")
+
+
+def click_next(driver):
     click_button(driver, "NextButton")
-    click_button(driver, "NextButton")
-
-    return not find_error(driver, "ErrorMessageOnTopOfThePage")
 
 
-def panda_express(email, rating, survey_code):
+def give_review(driver, rating, options):
+
+    for option in options:
+        if driver.find_elements(By.ID, option[0]):
+            click_button(driver, option[1] + rating)
+
+    click_next(driver)
+
+
+def pause():
+    input("Press Enter to close the browser...")
+
+
+def panda_express(email, rating, visit_type, survey_code):
 
     WEBSITE = "https://www.pandaguestexperience.com/Index.aspx?ADACompliance=true"
+
+    food_options = [
+        ("textR000012", "R000012."),
+        ("textR000015", "R000015."),
+        ("textR000010", "R000010."),
+        ("textR000011", "R000011."),
+        ("textR000018", "R000018."),
+        ("textR000020", "R000020."),
+        ("textR000013", "R000013."),
+        ("textR000016", "R000016."),
+        ("textR000008", "R000008."),
+        ("textR000021", "R000021."),
+        ("textR000015", "R000015."),
+    ]
+
+    recommendation_options = [
+        ("textR000074", "R000074."),
+        ("textR000073", "R000073."),
+        ("textR000141", "R000141."),
+        ("textR000072", "R000072."),
+    ]
+
+    bad_review_options = [
+        "R000504",
+        "R000299",
+        "R000045",
+        "R000052",
+        "R000061",
+        "R000030",
+        "R000038",
+        "R000068",
+    ]
 
     try:
 
@@ -37,145 +86,90 @@ def panda_express(email, rating, survey_code):
 
         print("Valid Survey Code")
 
-        # Please rate your overall satisfaction with your Panda Express experience
-
-        # input("Press Enter to close the browser...")
-
         # 1: Please rate your overall satisfaction with your Panda Express experience.
 
-        # clickButton(driver, "R000002" + "." + rating)
-        # clickButton(driver, "NextButton")
+        click_button(driver, "R000002." + rating)
+        click_next(driver)
 
-        # 1A:
+        # 1A: You selected that you were Highly Dissatisfied with your experience. Is this correct?
 
-        # if(int(rating) == 1):
-        #     clickButton(driver, "R000003.1")
-        #     clickButton(driver, "NextButton")
+        if rating == "1":
+            click_button(driver, "R000003.1")
+            click_next(driver)
 
-        # 2
+        # 1B: If NOT dine-in, please select your visit type:
 
-        # clickButton(driver, "R000005.5")
-        # clickButton(driver, "NextButton")
+        if visit_type == 1 or visit_type == 2:
 
-        # 3
+            if visit_type == 1:
+                # Online order pick-up
+                click_button(driver, "R000005.4")
+            else:
+                # Delivery
+                click_button(driver, "R000005.5")
 
-        # clickButton(driver, "R000006.2")
-        # clickButton(driver, "NextButton")
+            click_next(driver)
 
-        # 4
+            # 1C: Where did you place your order?
+            click_button(driver, "R000006.4")
+            click_next(driver)
 
-        # clickButtonRange(driver, 0, 299, 6, rating)
-        # clickButton(driver, "NextButton")
+        # 2: Review quality of food
 
-        # 5
+        give_review(driver, rating, food_options)
+        give_review(driver, rating, food_options)
 
-        # clickButtonRange(driver, 0, 299, 6, rating)
-        # clickButton(driver, "NextButton")
+        # 4: Which best describes your primary reason for visiting Panda Express? (Check all that apply.)
 
-        # 6
+        click_button(driver, "R000498")
+        click_next(driver)
 
-        # clickButton(driver, "NextButton")
+        # 5: Bad Review
 
-        # 6A:
+        if rating == "1" or rating == "2" or rating == "3":
+            while not driver.find_elements(By.ID, "textR000069"):
+                for option in bad_review_options:
+                    if driver.find_elements(By.ID, option):
+                        click_button(driver, option)
+                        break
 
-        # if(int(rating) < 4):
-        #     clickButton(driver, "NextButton")
-        #     clickButton(driver, "NextButton")
-        #     clickButton(driver, "NextButton")
-        #     clickButton(driver, "NextButton")
+                click_next(driver)
 
-        # 7
+        # 6A: Did you have a problem during your experience?
 
-        # clickButton(driver, "R000069.2")
-        # clickButton(driver, "NextButton")
+        if rating == "1":
+            click_button(driver, "R000069.1")
+            click_next(driver)
 
-        # 8
+            # 6B: We are sorry to hear you experienced a problem! Please tell us the primary cause of your problem.
 
-        # clickButton(driver, "R000073" + "." + rating)
-        # clickButton(driver, "R000141" + "." + rating)
-        # clickButton(driver, "R000074" + "." + rating)
-        # clickButton(driver, "NextButton")
+            click_button(driver, "R000318.99")
+            click_next(driver)
 
-        # 9
+            # 6C: Please rate your satisfaction with how well the problem was resolved.
+            # If you did not bring the problem to the team member's attention, select N/A.
 
-        # clickButton(driver, "NextButton")
+            click_button(driver, "R000070.9")
 
-        # 10
+        else:
+            click_button(driver, "R000069.2")
 
-        # clickButton(driver, "R000078" + "." + rating)
-        # clickButton(driver, "NextButton")
+        click_next(driver)
 
-        # 10A:
+        # 7: Would recommend
 
-        # if(int(rating) < 4):
-        #     clickButton(driver, "NextButton")
+        give_review(driver, rating, recommendation_options)
 
-        # 11
+        while not find_text(driver, "S000057"):
+            click_next(driver)
 
-        # clickButton(driver, "R000381" + "." + rating)
-        # clickButton(driver, "NextButton")
+        # 8: Provide the user's email
 
-        # 11A:
+        type_value(driver, "S000057", email)
+        type_value(driver, "S000064", email)
+        click_next(driver)
 
-        # if(int(rating) < 3):
-        #     clickButton(driver, "R000080.2")
-        # else:
-        #     clickButton(driver, "R000080.1")
-        # clickButton(driver, "NextButton")
-
-        # 12
-
-        # clickButton(driver, "R000087.1")
-        # clickButton(driver, "NextButton")
-
-        # 13
-
-        # clickButton(driver, "R000089.2")
-        # clickButton(driver, "NextButton")
-
-        # 14
-
-        # clickButton(driver, "R000092." + str(abs(5 - (int(rating) - 1))))    # apple pie
-        # clickButton(driver, "NextButton")
-
-        # 15
-
-        # clickButton(driver, "NextButton")
-
-        # 16
-
-        # clickButtonRange(driver, 118, 121, 4, rating)
-        # clickButton(driver, "NextButton")
-
-        # 17
-
-        # if(abs(5 - (int(rating) - 1)) > 3):
-        #     clickButtonRange(driver, 123, 128, 5, '3') # 1, 2, 3
-        # elif(abs(5 - (int(rating) - 1)) == 3):
-        #     clickButtonRange(driver, 123, 128, 5, '2') # 1, 2, 3
-        # else:
-        #     clickButtonRange(driver, 123, 128, 5, '1') # 1, 2, 3
-        # clickButton(driver, "NextButton")
-
-        # 18
-
-        # clickButton(driver, "NextButton")
-
-        # 19
-
-        # clickDropList(driver, 'R000130', 'Prefer not to answer')
-        # clickDropList(driver, 'R000131', 'Prefer not to answer')
-        # clickDropList(driver, 'R000132', 'Prefer not to answer')
-        # clickDropList(driver, 'R000133', 'Prefer not to answer')
-        # clickButton(driver, "NextButton")
-
-        # 20
-
-        # type(driver, "S000057", email)
-        # type(driver, "S000064", email)
-        # clickButton(driver, "NextButton")
-
-        # 21
+        # click_next(driver)
 
         # answer = getText(driver, '//*[@id="finishIncentiveHolder"]/p[2]')
 
@@ -197,6 +191,7 @@ def panda_express(email, rating, survey_code):
 
         # Terminate browser
 
+        pause()
         driver.quit()
 
         return "Success"
