@@ -1,8 +1,28 @@
+from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
 
-def clickButton(driver, buttonID):
-    driver.find_element_by_id(buttonID).click()
+def open_browser(WEBSITE):
+    # options = Options()
+    # options.binary_location = '/opt/headless-chromium'
+    # options.add_argument('--headless')
+    # options.add_argument('--no-sandbox')
+    # options.add_argument('--single-process')    # optional 
+    # options.add_argument('--disable-dev-shm-usage')
+
+    # driver = webdriver.Chrome('/opt/chromedriver',options=options)
+
+    driver = webdriver.Chrome()
+    driver.get(WEBSITE)
+    
+    return driver
+
+def click_button(driver, button_id):
+    driver.find_element(By.ID, button_id).click()
+
+def find_error(driver, error_name):
+    return driver.find_elements(By.NAME, error_name)
 
 def clickButtonRange(driver, startRange, endRange, stopAt, optionNumber):
 
@@ -13,7 +33,7 @@ def clickButtonRange(driver, startRange, endRange, stopAt, optionNumber):
         elif(i < 100): test = "R0000"
         else: test = "R000"
         try:  
-            clickButton(driver, test + str(i) + '.' + optionNumber)
+            click_button(driver, test + str(i) + '.' + optionNumber)
             count += 1
             if(count == stopAt): 
                 break
@@ -23,8 +43,8 @@ def clickButtonRange(driver, startRange, endRange, stopAt, optionNumber):
 def clickDropList(driver, listID, listOption):
     Select(driver.find_element_by_id(listID)).select_by_visible_text(listOption)
 
-def type(driver, textFieldName, text):
-    driver.find_element_by_name(textFieldName).send_keys(text)
+def type_value(driver, id, value):
+    driver.find_element(By.ID, id).send_keys(value)
 
 def getText(driver, xPath):
     return driver.find_element_by_xpath(xPath).text
