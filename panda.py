@@ -1,8 +1,4 @@
-from selenium import webdriver
-from selenium.webdriver.support.ui import Select
-from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-import json
 from operations import *
 
 
@@ -12,10 +8,8 @@ def input_survey_code(driver, survey_code):
 
     click_next(driver)
 
-    # remove 2 in production
-
-    click_next(driver)
-    click_next(driver)
+    # click_next(driver)
+    # click_next(driver)
 
     return not find_text(driver, "ErrorMessageOnTopOfThePage")
 
@@ -31,10 +25,6 @@ def give_review(driver, rating, options):
             click_button(driver, option[1] + rating)
 
     click_next(driver)
-
-
-def pause():
-    input("Press Enter to close the browser...")
 
 
 def panda_express(email, rating, visit_type, survey_code):
@@ -82,7 +72,7 @@ def panda_express(email, rating, visit_type, survey_code):
         # Enter survey code
 
         if not input_survey_code(driver, survey_code):
-            raise Exception("Invalid Survey Code: Please check and try again.")
+            raise Exception("Invalid Survey Code")
 
         print("Valid Survey Code")
 
@@ -169,32 +159,14 @@ def panda_express(email, rating, visit_type, survey_code):
         type_value(driver, "S000064", email)
         click_next(driver)
 
-        # click_next(driver)
-
-        # answer = getText(driver, '//*[@id="finishIncentiveHolder"]/p[2]')
-
-        # driver.close()
-        # driver.quit()
-
-        # return {
-        #     'statusCode': 200,
-        #     'headers': {
-        #         'Content-Type': 'application/json',
-        #         'custom-header': 'some-value'
-        #     },
-        #     'body': json.dumps(answer),
-        #     'cookies': [
-        #         "samplecookie=samplevalue",
-        #     ],
-        #     'isBase64Encoded': False
-        # }
-
         # Terminate browser
 
-        pause()
         driver.quit()
 
-        return "Success"
+        return "success"
 
     except Exception as e:
-        return e
+        if str(e) == "Invalid Survey Code":
+            return "Invalid Survey Code: Please check and try again."
+
+        return "We encountered an error. Please try again."
