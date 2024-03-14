@@ -19,6 +19,5 @@ __fastcall TMySuccessForm::TMySuccessForm(TComponent* Owner)
 void __fastcall TMySuccessForm::BackButtonClick(TObject *Sender)
 {
 	this->Close();
-	MyOptionsForm->Show();
 }
 //---------------------------------------------------------------------------
