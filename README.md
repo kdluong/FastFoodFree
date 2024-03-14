@@ -14,8 +14,13 @@ FastFoodFree is an innovative Windows application designed to streamline the sur
 
 ## Technology Stack
 
-**Backend:** Written in Python and hosted on Google Cloud Platform using Cloud Functions/Cloud Run for efficient and scalable operation.
-**GUI:** Developed in C++ for a smooth and responsive user interface on the Windows platform.
+**Backend:** 
+
+    Written in Python and hosted on Google Cloud Platform using Cloud Functions/Cloud Run for efficient and scalable operation.
+
+**GUI:** 
+
+    Developed in C++ for a smooth and responsive user interface on the Windows platform.
 
 ## Contribute
 
