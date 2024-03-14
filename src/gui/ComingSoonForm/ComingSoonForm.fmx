@@ -1,0 +1,61 @@
+object MyComingSoonForm: TMyComingSoonForm
+  Left = 0
+  Top = 0
+  BorderStyle = Single
+  Caption = 'FastFoodFree'
+  ClientHeight = 200
+  ClientWidth = 350
+  Fill.Color = xFF092324
+  Fill.Kind = Solid
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 0
+  object InfoLabel: TLabel
+    StyledSettings = []
+    Position.X = 92.000000000000000000
+    Position.Y = 30.000000000000000000
+    Size.Width = 166.000000000000000000
+    Size.Height = 25.000000000000000000
+    Size.PlatformDefault = False
+    TextSettings.Font.Family = 'Impact'
+    TextSettings.Font.Size = 20.000000000000000000
+    TextSettings.Font.StyleExt = {00040000000000000002000000}
+    TextSettings.FontColor = xFFFF4355
+    TextSettings.HorzAlign = Center
+    TextSettings.Trimming = None
+    Text = 'Coming Soon!'
+    TabOrder = 8
+  end
+  object Label1: TLabel
+    StyledSettings = []
+    Position.X = 16.000000000000000000
+    Position.Y = 48.000000000000000000
+    Size.Width = 313.000000000000000000
+    Size.Height = 89.000000000000000000
+    Size.PlatformDefault = False
+    TextSettings.Font.Family = 'Impact'
+    TextSettings.Font.Size = 15.000000000000000000
+    TextSettings.Font.StyleExt = {00040000000000000002000000}
+    TextSettings.FontColor = xFFFEFDE0
+    TextSettings.HorzAlign = Center
+    TextSettings.Trimming = None
+    TabOrder = 7
+  end
+  object BackButton: TButton
+    StyledSettings = []
+    Position.X = 108.000000000000000000
+    Position.Y = 130.000000000000000000
+    Size.Width = 134.000000000000000000
+    Size.Height = 40.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    Text = 'Return'
+    TextSettings.Font.Family = 'Impact'
+    TextSettings.Font.Size = 20.000000000000000000
+    TextSettings.Font.StyleExt = {00040000000000000002000000}
+    TextSettings.FontColor = xFF456E68
+    TextSettings.Trimming = None
+    OnClick = BackButtonClick
+  end
+end
