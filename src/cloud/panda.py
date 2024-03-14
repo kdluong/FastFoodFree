@@ -4,12 +4,23 @@ def input_survey_code(driver, survey_code):
     for index in range(0, 6):
         type_value(driver, "CN" + str(index + 1), survey_code[index])
 
-    click_next(driver)
-
+    click_button(driver, "NextButton")    
     return not find_text_name(driver, "ErrorMessageOnTopOfThePage")
 
 def click_next(driver):
     click_button(driver, "NextButton")
+
+    if find_text_name(driver, "ErrorMessageOnTopOfThePage"):
+        raise Exception("We have encountered an error. Please try again later. NEXT BUTTON")
+
+def handle_button_click(driver, id, next):
+    if find_text_id(driver, id):
+        click_button(driver, id)
+
+        if next:
+            click_next(driver)
+    else:
+        raise Exception("We have encountered an error. Please try again later.")
 
 def give_review(driver, rating, options):
 
@@ -68,18 +79,20 @@ def panda_express(email, rating, visit_type, survey_code):
 
         # 1: Please rate your overall satisfaction with your Panda Express experience.
 
-        click_button(driver, "R000002." + str(rating))
-        click_next(driver)
-
-        # 1A: You selected that you were Highly Dissatisfied with your experience. Is this correct?
+        handle_button_click(driver, "R000002." + str(rating), True)
 
         if rating == 1:
-            click_button(driver, "R000003.1")
-            click_next(driver)
+            handle_button_click(driver, "R000003.1", True)
+            
+        # Check if visit type is correct
 
-        # 1B: If NOT dine-in, please select your visit type:
+        visitCheck =  find_text_id(driver, "R000005.4")
 
-        if visit_type == 1 or visit_type == 2:
+        if visit_type > 0 and not visitCheck or visit_type == 0 and visitCheck:
+            raise Exception("Invalid Order Option.")
+        elif visit_type == 1 or visit_type == 2:
+            
+            # 1B: If NOT dine-in, please select your visit type:
 
             if visit_type == 1:
                 # Online order pick-up
@@ -91,8 +104,8 @@ def panda_express(email, rating, visit_type, survey_code):
             click_next(driver)
 
             # 1C: Where did you place your order?
-            click_button(driver, "R000006.4")
-            click_next(driver)
+
+            handle_button_click(driver, "R000006.4", True)
 
         # 2: Review quality of food
 
@@ -101,8 +114,7 @@ def panda_express(email, rating, visit_type, survey_code):
 
         # 3: Which best describes your primary reason for visiting Panda Express? (Check all that apply.)
 
-        click_button(driver, "R000498")
-        click_next(driver)
+        handle_button_click(driver, "R000498", True)
 
         # 4: Bad Review
 
@@ -118,21 +130,21 @@ def panda_express(email, rating, visit_type, survey_code):
         # 5A: Did you have a problem during your experience?
 
         if rating == 1:
-            click_button(driver, "R000069.1")
-            click_next(driver)
+
+            handle_button_click(driver, "R000069.1", True)
 
             # 5B: We are sorry to hear you experienced a problem! Please tell us the primary cause of your problem.
 
-            click_button(driver, "R000318.99")
-            click_next(driver)
+            handle_button_click(driver, "R000318.99", True)
 
             # 5C: Please rate your satisfaction with how well the problem was resolved.
             # If you did not bring the problem to the team member's attention, select N/A.
 
-            click_button(driver, "R000070.9")
+            handle_button_click(driver, "R000070.9", False)
 
         else:
-            click_button(driver, "R000069.2")
+
+            handle_button_click(driver, "R000069.2", False)
 
         click_next(driver)
 
@@ -141,7 +153,7 @@ def panda_express(email, rating, visit_type, survey_code):
         give_review(driver, rating, RECOMMENDATION_OPTIONS)
 
         while not find_text_name(driver, "S000057"):
-            click_next(driver)
+            click_button(driver, "NextButton")
 
         # 7: Provide the user's email
 
@@ -153,7 +165,7 @@ def panda_express(email, rating, visit_type, survey_code):
 
         driver.quit()
 
-        return "success"
+        return "Success!"
 
     except Exception as e:
 
@@ -161,5 +173,3 @@ def panda_express(email, rating, visit_type, survey_code):
             return "Invalid Survey Code: Please check and try again."
 
         return str(e)
-
-        # return "We encountered an error. Please try again."

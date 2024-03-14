@@ -20,7 +20,7 @@ def hello_http(request):
         if request_json and 'option' in request_json:
             option = request_json['option']
         else:
-            raise Exception("Missing option.")
+            raise Exception(request_args)
 
         # fetch survey code
 
@@ -30,7 +30,7 @@ def hello_http(request):
             raise Exception("Missing survey_code.")
 
         # fetch visit type 
-        # 0: In-store, 1: Online Order, 2: Delivery
+        # 0: In-store, 1: Pick-up, 2: Delivery
 
         if request_json and 'visit_type' in request_json:
             visit_type = request_json['visit_type']
@@ -51,12 +51,14 @@ def hello_http(request):
         else:
             raise Exception("Missing rating.")
 
+        # run chosen restaurant automation
+
         if option == "panda_express":
             response = panda_express(email, rating, visit_type, survey_code)
         else:
             raise Exception("Incorrect option")
 
-        if response != "success":
+        if response != "Success!":
             raise Exception(str(response))
         
         return {"statusCode": 200, "body": response}
