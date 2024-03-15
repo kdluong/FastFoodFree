@@ -1,4 +1,4 @@
-## About FastFoodFree
+## FastFoodFree - Fast Food Survey
 
 FastFoodFree is an innovative Windows application designed to streamline the survey process for fast food restaurants. With our user-friendly interface and efficient automation, users can complete surveys in seconds and receive incentives effortlessly. No more tedious forms or time-consuming questionnaires.
 
