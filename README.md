@@ -44,7 +44,7 @@ FastFoodFree is an innovative Windows application designed to streamline the sur
       
 5. Enjoy Fast Food Free!
    
-    * Once the application is launched, you can begin using Fast Food Free to redeem your survey incentives in seconds!
+    * Once the application is launched, you can begin using FastFoodFree to redeem your survey incentives in seconds!
    
 ## Contributing
 
