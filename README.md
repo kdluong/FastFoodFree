@@ -14,7 +14,10 @@ FastFoodFree is an innovative Windows application designed to streamline the sur
 
 ### Built With
 
-<div style="display: flex; align-items: flex-start;"><img src="https://techstack-generator.vercel.app/cpp-icon.svg" alt="icon" width="65" height="65" /></div><div style="display: flex; align-items: flex-start;"><img src="https://techstack-generator.vercel.app/python-icon.svg" alt="icon" width="65" height="65" /></div><div style="display: flex; align-items: flex-start;"><img src="https://techstack-generator.vercel.app/webpack-icon.svg" alt="icon" width="65" height="65" /></div>
+1. C++
+2. Python
+3. Google Cloud Functions
+4. Google Cloud Run
 
 ## Getting Started
 
