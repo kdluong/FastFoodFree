@@ -15,8 +15,9 @@ FastFoodFree is an innovative Windows application designed to streamline the sur
 ### Built With
 
 1. C++
-2. Python
-3. Google Cloud Platform
+   [![Built With](https://github-readme-tech-stack.vercel.app/api/cards?title=Built+With&lineCount=1&bg=%230D1117&badge=%23161B22&border=%2321262D&titleColor=%2358A6FF)
+3. Python
+4. Google Cloud Platform
 
 ## Getting Started
 
