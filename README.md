@@ -23,6 +23,8 @@ FastFoodFree is an innovative Windows application designed to streamline the sur
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 * [![JQuery][JQuery.com]][JQuery-url]
 
+## Getting Started
+
 ### Installation
 
 1. Get a free API Key at [https://example.com](https://example.com)
