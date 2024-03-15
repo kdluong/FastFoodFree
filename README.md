@@ -22,19 +22,22 @@ FastFoodFree is an innovative Windows application designed to streamline the sur
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the Repository or Download as ZIP:
+   * Clone the repository using the following command:
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/kdluong/FastFoodFree.git
    ```
-3. Install NPM packages
+   * Alternatively, download the repository as a ZIP file by clicking on the "Code" button and selecting "Download ZIP".
+2. Navigate to the Executable:
+   * Once the repository is cloned or the ZIP file is extracted, navigate to the following directory:
    ```sh
-   npm install
+   src -> gui -> Win32 -> Debug
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
+4. Run the Executable:
+    * In the "Debug" directory, you will find the FastFoodFree.exe executable file.
+    * Double-click on FastFoodFree.exe to run the application.
+5. Enjoy Fast Food Free!
+    * Once the application is launched, you can begin using Fast Food Free to [describe what your application does or its purpose].
    
 ## Contributing
 
