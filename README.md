@@ -15,9 +15,9 @@ FastFoodFree is an innovative Windows application designed to streamline the sur
 ### Built With
 
 1. C++
-2. Python
-3. Google Cloud Functions
-4. Google Cloud Run
+2. Google Cloud Functions
+3. Google Cloud Run
+4. Python
 
 ## Getting Started
 
