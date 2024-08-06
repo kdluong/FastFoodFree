@@ -12,6 +12,8 @@ FastFoodFree is an innovative Windows application designed to streamline the sur
     <img src="assets/README4.png" width="400" />
 </p>
 
+<img src="assets/README5.png" />
+
 ### Built With
 
 1. C++
